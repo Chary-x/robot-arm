@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 	wait_until_done(connection,5);
 
 	move_to_location(connection,1,0x01,0xff);
-	move_to_location(connection,2,0x01,0xff);
+	move_to_location(connection,2,0x01,0x23);
 	move_to_location(connection,3,0x01,0xff);
 	move_to_location(connection,4,0x01,0xff);
 	wait_until_done(connection,4);
@@ -40,10 +40,15 @@ int main(int argc, char* argv[]) {
 
 }
 
-// Opens the grabber
-void open_grabber() { }
+// ? Opens the grabber
+void open_grabber() { 
 
-// grabs the block
-void grab_block() { }
+}
+
+
+// ? grabs the block
+void grab_block() {
+	
+ }
 
 
