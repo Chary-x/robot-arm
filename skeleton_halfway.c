@@ -39,3 +39,11 @@ int main(int argc, char* argv[]) {
 	return 0;
 
 }
+
+// Opens the grabber
+void open_grabber() { }
+
+// grabs the block
+void grab_block() { }
+
+
