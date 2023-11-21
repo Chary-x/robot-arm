@@ -1,0 +1,104 @@
+# DO NOT CHANGE THE ORDER THAT THESE VARIABLES APPEAR IN
+# Read only variables are also included but trying to write to them will just give you back an error packet anyway (so the non-commented line number corresponds to the memory address in the motor)
+# If value is dnt, means do not touch and register just can't be changed at all
+
+# Model Number L
+0-255
+# Model Number H
+0-255
+# Firmware Version
+0-255
+# ID
+dnt
+# Baud Rate
+1-1
+# Return Delay Time
+1-255
+# CW Angle Limit L
+dnt
+# CW Angle Limit H
+dnt
+# CCW Angle Limit L
+dnt
+# CCW Angle Limit H
+dnt
+# Reserved
+dnt
+# High Limit Temperature
+1-255
+# Low Limit Temperature
+1-255
+# High Limit Voltage
+1-255
+# Max Torque L
+1-255
+# Max Torque H
+1-255
+# Status Return Level
+1-2
+# Alarm LED
+0-255
+# Alarm Shutdown
+0-255
+# Reserved
+dnt
+# Down Calibration L
+0-255
+# Down Calibration H
+0-255
+# Up Calibration L
+0-255
+# Up Calibration H
+0-255
+# Torque Enable
+0-255
+# LED
+0-255
+# CW Compliance Margin
+dnt
+# CCW Compliance Margin
+dnt
+# CW Compliance Slope
+dnt
+# CCW Compliance Slope
+dnt
+# Goal Position L
+0-255
+# Goal Position H
+0-255
+# Moving Speed L
+0-112
+# Moving Speed H
+0-0
+# Torque Limit L
+1-255
+# Torque Limit H
+1-255
+# Present Position L
+0-255
+# Present Position H
+0-255
+# Present Speed L
+0-255
+# Present Speed H
+0-255
+# Present Load L
+0-255
+# Present Load H
+0-255
+# Present Voltage
+0-255
+# Present Temperature
+0-255
+# Registered Instruction
+0-255
+# Reserved
+dnt
+# Moving
+0-255
+# Lock
+0-0
+# Punch L
+dnt
+# Punch H
+dnt
