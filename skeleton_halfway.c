@@ -37,7 +37,6 @@ void close_grabber(int connection) {
 
 
 void reset_arm(int connection) {
-	move_to_location(connection, 1, 0x01, 0xff);
 	move_to_location(connection, 2, 0x01, 0xff);
 	move_to_location(connection, 3, 0x01, 0xff);
 	move_to_location(connection, 4, 0x01, 0xff);
@@ -46,8 +45,10 @@ void reset_arm(int connection) {
 
 void lateral_movement(int connection, int pile) {
 	// todo figure out how to make it move to the right
-	unsigned int offset = pile * 0x55;
-	move_to_location(connection,1,0x01,offset);
+	//unsigned int offset = pile * 0x55;
+	//move_to_location(connection,1,0x01,offset);
+	unsigned int[] piles = {0xff, 0x35, 0x95};
+	move_to_location(connection, 1, 0x01, piles[pile]);
 	wait_until_done(connection, 1);
 }
 
@@ -57,23 +58,20 @@ void pickup(int connection, int pile, int layer) {
 }
 
 void LAYER_2_PILE_0(int connection) {
-	move_to_location(connection,1,0x01,0xff);
 	move_to_location(connection,2,0x01,0x11);
 	move_to_location(connection,3,0x01,0xcf);
 	move_to_location(connection,4,0x01,0x00);
 	wait_until_done(connection,4);
 }
 
-void LAYER_1_PILE_0() {
-	move_to_location(connection,1,0x01,0xff);
+void LAYER_1_PILE_0(int connection) {
 	move_to_location(connection,2,0x01,0x00);
 	move_to_location(connection,3,0x01,0xcf);
 	move_to_location(connection,4,0x01,0x00);
 	wait_until_done(connection,4);
 }
 
-void LAYER_0_PILE_0() {
-	move_to_location(connection,1,0x01,0xff);
+void LAYER_0_PILE_0(int connection) {
 	move_to_location(connection,2,0x01,0x00);
 	move_to_location(connection,3,0x01,0x93);
 	move_to_location(connection,4,0x01,0x50);
@@ -103,13 +101,17 @@ int main(int argc, char* argv[]) {
 
 	int connection = open_connection("/dev/ttyUSB0",B1000000);
 
-	wait_until_done(connection,5);
-
 	reset_arm(connection);
 	//pen_grabber(connection);
 	//close_grabber(connection);
-
-	
+	lateral_movement(connection, 0);
+	open_grabber(connection);
+	LAYER_2_PILE_0(connection);
+	close_grabber(connection);
+	reset_arm(connection);
+	lateral_movement(connection, 1);
+	LAYER_0_PILE_0(connection);
+	open_grabber(connection);
 
 	reset_arm(connection);
 
