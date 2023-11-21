@@ -23,32 +23,38 @@ void wait_until_done(int connection, unsigned char id) {
 	usleep(2000000);
 }
 
-int main(int argc, char* argv[]) {
-
-	int connection = open_connection("/dev/ttyUSB0",B1000000);
-
-	move_to_location(connection,5,0x01,0xff);
-	wait_until_done(connection,5);
-
-	move_to_location(connection,1,0x01,0xff);
-	move_to_location(connection,2,0x01,0x23);
-	move_to_location(connection,3,0x01,0xff);
-	move_to_location(connection,4,0x01,0xff);
-	wait_until_done(connection,4);
-
-	return 0;
-
-}
-
 // ? Opens the grabber
-void open_grabber() { 
-
+void open_grabber(int connection) { 
+	move_to_location(connection,5,0x01,0xff);
 }
 
 
 // ? grabs the block
-void grab_block() {
-	
- }
+void close_grabber(int connection) {
+	move_to_location(connection,5,0x01,0x55);
+}
+
+int main(int argc, char* argv[]) {
+
+	int connection = open_connection("/dev/ttyUSB0",B1000000);
+
+	wait_until_done(connection,5);
+
+	open_grabber(connection);
+	//close_grabber(connection);
+
+	move_to_location(connection,1,0x01,0xff);
+	move_to_location(connection,2,0x01,0x22);
+	move_to_location(connection,3,0x01,0xff);
+	move_to_location(connection,4,0x01,0x30);
+	wait_until_done(connection,4);
+
+	return 0;
+
+
+}
+
+
+
 
 
