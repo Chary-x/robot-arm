@@ -57,21 +57,21 @@ void pickup(int connection, int pile, int layer) {
 
 }
 
-void LAYER_2_PILE_0(int connection) {
+void LAYER_2(int connection) {
 	move_to_location(connection,2,0x01,0x11);
 	move_to_location(connection,3,0x01,0xcf);
 	move_to_location(connection,4,0x01,0x00);
 	wait_until_done(connection,4);
 }
 
-void LAYER_1_PILE_0(int connection) {
+void LAYER_1(int connection) {
 	move_to_location(connection,2,0x01,0x00);
 	move_to_location(connection,3,0x01,0xcf);
 	move_to_location(connection,4,0x01,0x00);
 	wait_until_done(connection,4);
 }
 
-void LAYER_0_PILE_0(int connection) {
+void LAYER_0(int connection) {
 	move_to_location(connection,2,0x01,0x00);
 	move_to_location(connection,3,0x01,0x93);
 	move_to_location(connection,4,0x01,0x50);
