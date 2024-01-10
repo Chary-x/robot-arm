@@ -108,35 +108,21 @@ void dropoff(int connection, int layer, int pile) {
 	resetArm(connection);
 }
 
+void verticalMovement(int connection, int layer) {
+  unsigned int layers[3][3] = {
+      {0x30, 0x9a, 0x00}, {0x10, 0xb0, 0x00}, {0x00, 0xaa, 0x00}};
 
-void layer2(int connection, int clearance) {
-	move_to_location(connection,2,0x01,0x30 + clearance);
-	move_to_location(connection,3,0x01,0x9a);
-	move_to_location(connection,4,0x01,0x00);
+  int i = 2;
+  for (i = 2; i < 5; i++) {
+    move_to_location(connection, i, 0x01, layers[layer][i - 2]);
+  }
 }
-
-void layer1(int connection, int clearance) {
-	move_to_location(connection,2,0x01,0x10 + clearance);
-	move_to_location(connection,3,0x01,0xb0);
-	move_to_location(connection,4,0x01,0x00);
-
-}
-
-void layer0(int connection, int clearance) {
-	move_to_location(connection,2,0x01,0x00 + clearance);
-	move_to_location(connection,3,0x01,0xaa);
-	move_to_location(connection,4,0x01,0x00);
-
-}
-
 
 int main(int argc, char* argv[]) {
 	// ? Do we make the connection a global variable?
 	int connection = open_connection("/dev/ttyUSB0",B1000000);
 
 	openGrabber(connection);
-
-
 	/* 
 	? The sequence of movements we need to make
 	! Start !
@@ -150,7 +136,6 @@ int main(int argc, char* argv[]) {
 	! Done !
 	*/ 
 	resetArm(connection);
-	
 	
 	// Step 0
 	pickup(connection, 2, 0);
@@ -179,9 +164,6 @@ int main(int argc, char* argv[]) {
 	// Step 6
 	pickup(connection, 0, 0);
 	dropoff(connection, 2, 2);
-
-
-
 
 	return 0;
 }
