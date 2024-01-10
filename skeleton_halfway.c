@@ -5,7 +5,7 @@
 
 // To be used for calculting disks on a specific pile
 
-int disksOnPile[] = {2, -1, -1};
+int blocksOnPiles[] = {2, -1, -1};
 
 // Initialise connection with robot arm
 int connection = open_connection("/dev/ttyUSB0", B1000000);
@@ -52,7 +52,7 @@ void resetArm() {
 void lateralMovement(int pile) {
   unsigned int piles[] = {0xff, 0x95, 0x35};
   move_to_location(1, 0x01, piles[pile]);
-  wait_until_done(2000000);
+  wait_until_done(2000000); 
 }
 
 // Performs movement to different layers
@@ -67,7 +67,7 @@ void verticalMovement(int layer) {
 }
 
 // Moves the arm first over the correct pile then the correct layer
-void pickup(int from) {
+void pickup(int sourcePile) {
   // Resetting the arm to neutral
   resetArm();
 
@@ -75,10 +75,10 @@ void pickup(int from) {
   openGrabber();
 
   // Moving arm over correct pile
-  lateralMovement(from);
+  lateralMovement(sourcePile);
 
   // Moving the arm to the correct layer
-  verticalMovement(disksOnPile[from]);
+  verticalMovement(blocksOnPiles[sourcePile]);
 
   wait_until_done(3000000);
   // Grip the block
@@ -89,15 +89,15 @@ void pickup(int from) {
   resetArm();
 }
 
-void dropoff(int to) {
+void dropoff(int targetPile) {
   // Resetting the arm to neutral
   resetArm();
 
   // Moving arm over correct pile
-  lateralMovement(to);
+  lateralMovement(targetPile);
 
   // Moving the arm to the correct layer
-  verticalMovement(disksOnPile[to]);
+  verticalMovement(blocksOnPiles[targetPile]);
 
   wait_until_done(3000000);
 
@@ -110,25 +110,25 @@ void dropoff(int to) {
 }
 
 // Updates appropriate state regarding amount of disks on each pile
-void updateDisksOnPiles(int from, int to) {
-  disksOnPile[to]++;
+void updateDisksOnPiles(int sourcePile, int targetPile) {
+  blocksOnPiles[targetPile]++;
 
-  pickup(from);
-  dropoff(to);
+  pickup(sourcePile);
+  dropoff(targetPile);
 
-  disksOnPile[from]--;
+  blocksOnPiles[sourcePile]--;
 }
 
 // This is the recursive algorithm that calculates which piles and layers to
 // move to
-char towerOfHanoi(int n, int from, int to, int aux) {
+char towerOfHanoi(int n, int sourcePile, int targetPile, int auxiliaryPile) {
   if (n == 0) {
     return 'D';
   }
 
-  towerOfHanoi(n - 1, from, aux, to);
-  updateDisksOnPiles(from, to);
-  towerOfHanoi(n - 1, aux, to, from);
+  towerOfHanoi(n - 1, sourcePile, auxiliaryPile, targetPile);
+  updateDisksOnPiles(sourcePile, targetPile);
+  towerOfHanoi(n - 1, auxiliaryPile, targetPile, sourcePile);
 }
 
 // Main program flow
@@ -137,7 +137,8 @@ int main(void) {
   // Ensuring robot is in neutral state before starting
   openGrabber();
   resetArm();
-
-  towerOfHanoi(3, 0, 2, 1);
+  
+  int n = 3
+  towerOfHanoi(n, 0, 2, 1);
   return 0;
 }
