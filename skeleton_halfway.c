@@ -35,7 +35,7 @@ void openGrabber() {
 }
 
 // Closes the grabber on the block
-void closeGrabber(int) {
+void closeGrabber() {
   move_to_location(5, 0x01, 0x35);
   wait_until_done(2000000);
 }
@@ -67,7 +67,7 @@ void verticalMovement(int layer) {
 }
 
 // Moves the arm first over the correct pile then the correct layer
-void pickup(int , int from) {
+void pickup(int from) {
   // Resetting the arm to neutral
   resetArm();
 
@@ -134,10 +134,10 @@ char towerOfHanoi(int n, int from, int to, int aux) {
 // Main program flow
 int main(void) {
 
-
   // Ensuring robot is in neutral state before starting
-  openGrabber(connection);
-  resetArm(connection);
-  towerOfHanoi(connection, 3, 0, 2, 1);
+  openGrabber();
+  resetArm();
+
+  towerOfHanoi(3, 0, 2, 1);
   return 0;
 }
