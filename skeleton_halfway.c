@@ -138,7 +138,7 @@ int main(void) {
   openGrabber();
   resetArm();
   
-  int n = 3
+  int n = 3;
   towerOfHanoi(n, 0, 2, 1);
   return 0;
 }
