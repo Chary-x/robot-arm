@@ -120,9 +120,9 @@ char towerOfHanoi(int connection, int n, int from, int to, int aux) {
     return 'D';
   }
 
-  towerOfHanoi(n - 1, from, aux, to);
-  updateDisksOnPiles(from, to);
-  towerOfHanoi(n - 1, aux, to, from);
+  towerOfHanoi(connection, n - 1, from, aux, to);
+  updateDisksOnPiles(connection, from, to);
+  towerOfHanoi(connection, n - 1, aux, to, from);
 }
 
 // Main program flow
